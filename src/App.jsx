@@ -3,11 +3,14 @@ import { useState } from 'react';
 import Login from './components/Auth/Login'
 import Employee from './components/Dashboard/EmployeeDashboard';
 import  AdminDashboard  from './components/Dashboard/AdminDashboard';
-
+import { AuthContext } from './context/AuthProvider';
 
 
 
 const App = () => {
+    const [user, setUser] = useState();
+    
+    
   const handleLogin =(email,password) =>{
     if(email == 'admin@me.com' && password == 'admin123'){
       alert("Admin login successfull");
@@ -21,16 +24,13 @@ const App = () => {
       alert("invalid credentials");
     }
   }
-  const data = useContext(AuthContext);
-  const [user, setUser] = useState();
+    const authData = useContext(AuthContext);
+  console.log(authData);
+
   return (
     <>
     {!user ? <Login handleLogin={handleLogin} />:''}
     {user == 'admin' ? <AdminDashboard/>: <Employee/>}
-    {/* <Login/> */}
-    {/* <Employee/> */}
-    {/* <AdminDashboard/> */}
-    
     </>
   )
 }
